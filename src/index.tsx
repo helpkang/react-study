@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import {createRoot} from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -8,7 +8,8 @@ import {
   RouterProvider,
   Link,
 } from "react-router-dom";
-import About  from './about/About';
+
+const About = React.lazy(() => import('./about/About'));
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,9 @@ const router = createBrowserRouter([
   },
   {
     path: "about",
-    element: <About/>,
+    element:  <Suspense fallback={<div>Loading...</div>}>
+    <About />
+  </Suspense>,
   },
 ]);
 
